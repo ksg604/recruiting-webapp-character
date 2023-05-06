@@ -1,4 +1,4 @@
-import { ATTRIBUTE_LIST } from "./consts";
+import { ATTRIBUTE_LIST, CLASS_LIST } from "./consts";
 
 export class Character {
   constructor(name) {
@@ -18,5 +18,9 @@ export class Character {
   decrementAttribute(attributeName) {
     let newValue = this.attributes[attributeName].value -= 1;
     this.attributes[attributeName] = {...this.attributes[attributeName], value: newValue};
+  }
+
+  meetsClassRequirements(className) {
+    return Object.keys(this.attributes).every(attribute => this.attributes[attribute].value >= CLASS_LIST[className][attribute]);
   }
 };

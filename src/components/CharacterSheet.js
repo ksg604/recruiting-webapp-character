@@ -1,7 +1,11 @@
 import styles from "./CharacterSheet.module.css";
-import { ATTRIBUTE_LIST } from "../consts";
+import { ATTRIBUTE_LIST, CLASS_LIST } from "../consts";
+import { useState } from "react";
+import ClassRequirements from "./ClassRequirements";
 
 export default function CharacterSheet({character, characters, setCharacters}) {
+
+  const [classRequirementsOpen, setClassRequirementsOpen] = useState("");
 
   const handleIncrementAttribute = (attributeToIncrement) => {
     character.incrementAttribute(attributeToIncrement);
@@ -11,6 +15,14 @@ export default function CharacterSheet({character, characters, setCharacters}) {
   const handleDecrementAttribute = (attributeToDecrement) => {
     character.decrementAttribute(attributeToDecrement);
     setCharacters({...characters, [character.name]: character});
+  }
+
+  const handleOpenClassRequirements = (className) => {
+    if (classRequirementsOpen === className) {
+      setClassRequirementsOpen("");
+      return;
+    }
+    setClassRequirementsOpen(className);
   }
 
   return(
@@ -25,6 +37,19 @@ export default function CharacterSheet({character, characters, setCharacters}) {
             </div>
           )}
         </div>
+        <div className={styles["stats-box"]}>
+          {Object.keys(CLASS_LIST).map(characterClass => 
+            <span  
+              style={character.meetsClassRequirements(characterClass) ? {color: "red"} : {color: "inherit"}} 
+              key={characterClass}
+              onClick={() => handleOpenClassRequirements(characterClass)}>
+                {characterClass}
+            </span>
+          )}
+        </div>
+        {
+          classRequirementsOpen !== "" ? <ClassRequirements className={classRequirementsOpen}/> : ""
+        }
       </section>
     </div>
   )
