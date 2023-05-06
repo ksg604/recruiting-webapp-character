@@ -1,0 +1,19 @@
+.CharacterSheet {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  border-radius: 5px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.stats-box {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px white;
+  width: 300px;
+}
