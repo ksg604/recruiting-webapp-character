@@ -60,4 +60,16 @@ export class Character {
   meetsClassRequirements(className) {
     return Object.keys(this.attributes).every(attribute => this.attributes[attribute].value >= CLASS_LIST[className][attribute]);
   }
+
+  setSkills(skills) {
+    this.skills = skills;
+  }
+
+  setAttributes(attributes) {
+    this.attributes = attributes;
+  }
+
+  setSkillPoints(skillPoints) {
+    this.skillPoints = skillPoints;
+  }
 };
