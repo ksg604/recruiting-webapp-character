@@ -1,5 +1,5 @@
 import styles from "./CharacterSheet.module.css";
-import { ATTRIBUTE_LIST, CLASS_LIST } from "../consts";
+import { ATTRIBUTE_LIST, CLASS_LIST, SKILL_LIST } from "../consts";
 import { useState } from "react";
 import ClassRequirements from "./ClassRequirements";
 
@@ -14,6 +14,14 @@ export default function CharacterSheet({character, characters, setCharacters}) {
 
   const handleDecrementAttribute = (attributeToDecrement) => {
     character.decrementAttribute(attributeToDecrement);
+    setCharacters({...characters, [character.name]: character});
+  }
+  const handleIncrementSkill = (skillToDecrement) => {
+    character.incrementSkill(skillToDecrement);
+    setCharacters({...characters, [character.name]: character});
+  }
+  const handleDecrementSkill = (skillToDecrement) => {
+    character.decrementSkill(skillToDecrement);
     setCharacters({...characters, [character.name]: character});
   }
 
@@ -50,6 +58,17 @@ export default function CharacterSheet({character, characters, setCharacters}) {
         {
           classRequirementsOpen !== "" ? <ClassRequirements className={classRequirementsOpen}/> : ""
         }
+        <div className={styles["stats-box"]}>
+          <h2>Total Skill Points: {character.skillPoints}</h2>
+          {SKILL_LIST.map(skill => 
+            <div key={skill.name} className={styles["skill-container"]}>
+              <span>{skill.name}: {character.skills[skill.name].value-character.attributes[character.skills[skill.name].modifier].modifier} (Modifier: {character.skills[skill.name].modifier}): 
+              {character.attributes[character.skills[skill.name].modifier].modifier} Total: {character.skills[skill.name].value}</span>
+              <button onClick={() => handleIncrementSkill(skill.name)}>+</button>
+              <button onClick={() => handleDecrementSkill(skill.name)}>-</button>
+            </div>
+          )}
+        </div>
       </section>
     </div>
   )
