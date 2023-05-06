@@ -11,13 +11,14 @@ export class Character {
 
   incrementAttribute(attributeName) {
     let newValue = this.attributes[attributeName].value += 1;
-    this.attributes[attributeName] = {...this.attributes[attributeName], value: newValue};
-    console.log(this.attributes[attributeName]);
+    let newModifier = Math.floor((newValue - 10) / 2);
+    this.attributes[attributeName] = {modifier: newModifier, value: newValue};
   }
 
   decrementAttribute(attributeName) {
     let newValue = this.attributes[attributeName].value -= 1;
-    this.attributes[attributeName] = {...this.attributes[attributeName], value: newValue};
+    let newModifier = Math.floor((newValue - 10) / 2);
+    this.attributes[attributeName] = {modifier: newModifier, value: newValue};
   }
 
   meetsClassRequirements(className) {
