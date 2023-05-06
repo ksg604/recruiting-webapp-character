@@ -9,12 +9,17 @@ export class Character {
       this.attributes[attribute] = {value: 10, modifier: 0};
     }
     this.skillPoints = 10;
+    this.attributePoints = 10;
     for (const skill of SKILL_LIST) {
       this.skills[skill.name] = {name: skill.name, value: 0, modifier: skill.attributeModifier}
     }
   }
 
   incrementAttribute(attributeName) {
+    if (this.attributePoints <= 0) {
+      window.alert("You have no attribute points left");
+      return;
+    }
     let newValue = this.attributes[attributeName].value += 1;
     let newModifier = Math.floor((newValue - 10) / 2);
     if (attributeName === "Intelligence") {
@@ -26,10 +31,18 @@ export class Character {
         this.skills[skill.name].value = 0 + newModifier;
       }
     });
-    //this.skills[skillName] = {...this.skills[skillName], value: this.skills[skillName].value + this.attributes[this.skills[skillName].modifier].modifier }
+    this.attributePoints--;
   }
 
   decrementAttribute(attributeName) {
+    if (this.attributePoints >= 70) {
+      window.alert("You cannot have more than 70 attribute points");
+      return;
+    }
+    if (this.attributes[attributeName].value <= 0) {
+      window.alert("Attribute points cannot be lower than 0");
+      return;
+    }
     let newValue = this.attributes[attributeName].value -= 1;
     let newModifier = Math.floor((newValue - 10) / 2);
     if (attributeName === "Intelligence") {
@@ -42,6 +55,7 @@ export class Character {
         this.skills[skill.name].value = 0 + newModifier;
       }
     });
+    this.attributePoints++;
   }
 
   incrementSkill(skillName) {

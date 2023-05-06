@@ -37,6 +37,7 @@ export default function CharacterSheet({character, characters, setCharacters}) {
     <div className={styles["CharacterSheet"]}>
       <section className={styles["stats"]}>
         <div className={styles["stats-box"]}>
+          <h2>Attribute Points: {character.attributePoints}</h2>
           {ATTRIBUTE_LIST.map(attribute => 
             <div key={attribute} className={styles["attribute-container"]}>
               <span>{attribute}: {character.attributes[attribute].value} (Modifier: {character.attributes[attribute].modifier}) </span>
