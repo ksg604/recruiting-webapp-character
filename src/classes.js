@@ -59,13 +59,20 @@ export class Character {
   }
 
   incrementSkill(skillName) {
-    if (this.skillPoints <= 0) return;
+    if (this.skillPoints <= 0) {
+      window.alert("You have no more skill points to spend!  Reduce your skills or increase your intelligence for more skill points.");
+      return;
+    }
     let newValue = this.skills[skillName].value += 1;
     this.skills[skillName] = {...this.skills[skillName], value: newValue};
     this.skillPoints--;
   }
 
   decrementSkill(skillName) {
+    if (this.skills[skillName].value <= 0) {
+      window.alert("You cannot spend skill points on skills less than 0");
+      return;
+    }
     let newValue = this.skills[skillName].value -= 1;
     this.skills[skillName] = {...this.skills[skillName], value: newValue};
     this.skillPoints++;
